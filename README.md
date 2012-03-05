@@ -23,9 +23,9 @@ There is no need to setup load-path with add-to-list if you copy
 
 ## Requirements
 
-### mthdspool
+### [mthdspool Ruby gem](http://github.com/jpablobr/mthdspool)
 
-With RubyGems, simply open a terminal and type:
+Installation with RubyGems, simply open a terminal and type:
 
     $ {sudo} gem install mthdspool
 
@@ -52,7 +52,7 @@ to the `mthdspool` script in your `~/.emacd` like so:
       "~/.rvm/gems/ruby-1.9.3-p0@global/bin/mthdspool -object %s -filter %s")
 ```
 
-### Anything.el
+### [Anything.el](http://www.emacswiki.org/emacs/Anything)
 You will also need to install
 [anything-mode](http://www.emacswiki.org/emacs/Anything). See
 documentation for how to install.
