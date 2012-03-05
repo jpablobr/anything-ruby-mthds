@@ -90,6 +90,11 @@ following methods.
 
 Finally, it will `kill/copy` the method you selected. :D
 
+* >  = signifies inherited method.
+* <  = signifies object specific method.
+* IM = Instance Method
+* SM = Singleton Method
+
 ## Todo
 
 Add support to the `--instance` object parameter that the [mthdspool Ruby gem](http://github.com/jpablobr/mthdspool) already supports.
