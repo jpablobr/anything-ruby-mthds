@@ -101,18 +101,30 @@
 (defun anything-ruby-mthds-fontify (obj mthd)
   (goto-char 1)
   (while (re-search-forward (concat
-                             "\\(^[<>]\\)\\([SMI]\\{2\\}\\)\\( \\)\\(.*\\)\\("
+                             "\\(^<\\)\\([SMI]\\{2\\}\\)") nil t)
+    (put-text-property (match-beginning 1) (match-end 1)
+                       'face compilation-column-face)
+    (put-text-property (match-beginning 2) (match-end 2)
+                       'face compilation-column-face)
+    (forward-line 1))
+  (goto-char 1)
+  (while (re-search-forward (concat
+                             "\\(^>\\)\\([SMI]\\{2\\}\\)") nil t)
+    (put-text-property (match-beginning 1) (match-end 1)
+                       'face compilation-info-face)
+    (put-text-property (match-beginning 2) (match-end 2)
+                       'face compilation-info-face)
+    (forward-line 1))
+  (goto-char 1)
+  (while (re-search-forward (concat
+                             "\\(^[<>]...\\)\\(.*\\)\\("
                              obj
                              "\\)\\(.*\\)\\(#\\)\\(.*\\)\\("
                              mthd
                              "\\)\\(.*\\)") nil t)
-    (put-text-property (match-beginning 1) (match-end 1)
-                       'face compilation-error-face)
-    (put-text-property (match-beginning 2) (match-end 2)
-                       'face compilation-info-face)
-    (put-text-property (match-beginning 5) (match-end 5)
+    (put-text-property (match-beginning 3) (match-end 3)
                        'face compilation-line-face)
-    (put-text-property (match-beginning 9) (match-end 9)
+    (put-text-property (match-beginning 7) (match-end 7)
                        'face compilation-warning-face)
     (forward-line 1)))
 

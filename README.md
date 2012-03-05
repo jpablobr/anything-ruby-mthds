@@ -1,5 +1,5 @@
 Emacs Anything Ruby Mthds
-========================
+=========================
 
 Quick fuzzy search of Ruby objects methods.
 
@@ -88,7 +88,16 @@ following methods.
     >IM Gem::FilePermissionError#respond_to?
     >IM Gem::FilePermissionError#respond_to_missing?
 
-Finally, it will `kill/copy` the method you selected. :D
+Finally, it will `kill/copy` the method you selected.
+
+It's also possible to search directly for methods by using the `#` as
+the first parameter:
+
+    #meth_name
+ 
+ __All this out is obviously displayed with sensible colored output. :D__
+ 
+## Symbols definition
 
 * >  = signifies inherited method.
 * <  = signifies object specific method.
