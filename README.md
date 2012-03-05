@@ -58,6 +58,38 @@ You will also need to install
 documentation for how to install.
 
 
+## Usage
+
+When you run:
+
+    M-x anything-ruby-mthds
+
+you'll see the `anything` prompt where you'll be able to filter the
+system Ruby objects methods (by using Ruby `Objectspace` class). For
+example, if you type:
+
+    File#res
+    
+It will do __two__ things: 
+
+* First, find all the object that their name matches `File`.
+* Second, filter each of those object methods by the ones that their name matches `res`.
+
+This is done by appending a `#` character after the object you want to
+see its methods. 
+
+So, with the `File#res` query (in my system), will display the
+following methods.
+
+    >IM File::Stat#respond_to?
+    >IM File::Stat#respond_to_missing?
+    >IM File#respond_to?
+    >IM File#respond_to_missing?
+    >IM Gem::FilePermissionError#respond_to?
+    >IM Gem::FilePermissionError#respond_to_missing?
+
+Finally it will `kill/copy` the method you were looking for. :D
+
 ## Copyright
 
 Copyright 2012 Jose Pablo Barrantes. MIT Licence, so go for it.
