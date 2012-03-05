@@ -49,7 +49,7 @@ to the `mthdspool` script in your `~/.emacd` like so:
 
 ```lisp
 (setq anything-ruby-mthds-object-cmd
-      "~/.rvm/gems/ruby-1.9.3-p0@global/bin/mthdspool -object %s -filter %s")
+      "~/.rvm/gems/ruby-1.9.3-p0@global/bin/mthdspool --object %s --filter %s")
 ```
 
 ### [Anything.el](http://www.emacswiki.org/emacs/Anything)
