@@ -65,20 +65,20 @@ When you run:
     M-x anything-ruby-mthds
 
 you'll see the `anything` prompt where you'll be able to filter the
-system Ruby objects methods (by using Ruby `Objectspace` class). For
-example, if you type:
+system Ruby objects methods (thank's to Ruby's `Objectspace` class). 
+
+For example, if you type:
 
     File#res
     
 It will do __two__ things: 
 
-* First, find all the object that their name matches `File`.
-* Second, filter each of those object methods by the ones that their name matches `res`.
+* First, find all the objects that their name matches `File`.
+* Second, filter each of those objects methods by the ones that their name matches `res`.
 
-This is done by appending a `#` character after the object you want to
-see its methods. 
+This is done by appending a `#` character after the object.
 
-So, with the `File#res` query (in my system), will display the
+So, with the `File#res` query (in my system), it will display the
 following methods.
 
     >IM File::Stat#respond_to?
@@ -88,7 +88,11 @@ following methods.
     >IM Gem::FilePermissionError#respond_to?
     >IM Gem::FilePermissionError#respond_to_missing?
 
-Finally it will `kill/copy` the method you were looking for. :D
+Finally, it will `kill/copy` the method you selected. :D
+
+## Todo
+
+Add support to the `--instance` object parameter that the [mthdspool Ruby gem](http://github.com/jpablobr/mthdspool) already supports.
 
 ## Copyright
 
