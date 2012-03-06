@@ -102,7 +102,6 @@
                     anything-pattern
                     require-file
                     (anything-ruby-mthds-find-libs)))
-  (message (concat "DBG: cmd=" cmd))
   (prog1
       (start-process-shell-command
        "anything-mthdspool-inspect-process" nil cmd)
@@ -225,7 +224,6 @@
   "inspects the given ruby object."
   (interactive)
   (setq require-file (file-truename buffer-file-name))
-  (message require-file)
   (anything-other-buffer
    '(anything-c-source-ruby-inspect) *anything-ruby-inspect-buffer-name*))
 
