@@ -77,10 +77,10 @@
 (defun anything-ruby-mthds-find-repo (dir)
   "Recursively search for a .git/ directory."
   (if (string= "/" dir)
-      (message "not in a git repo.")
+      ""
     (if (file-exists-p (expand-file-name ".git/" dir))
         dir
-      (anything-git-grep-find-repo (expand-file-name "../" dir)))))
+      (anything-ruby-mthds-find-repo (expand-file-name "../" dir)))))
 
 (defun anything-ruby-mthds-find-libs ()
   "Search current project libraries."
@@ -90,6 +90,12 @@
    ":"
    (concat root-dir "test:.")))
 
+(defun anything-ruby-mthds-find-require ()
+  (if (and (stringp buffer-file-name)
+           (string-match "\\.rb?\\'" buffer-file-name))
+      (file-truename buffer-file-name)
+    ""))
+
 (defun anything-ruby-inspect-init (require-file)
   "mthdspool inspect process."
   (setq mode-line-format
@@ -97,7 +103,6 @@
           (line-number-mode "%l") " "
           (:eval (propertize "(mthdspool inspect pocess running) "
                              'face '((:foreground "red"))))))
-
   (setq cmd (format anything-ruby-inspect-cmd
                     anything-pattern
                     require-file
@@ -105,7 +110,6 @@
   (prog1
       (start-process-shell-command
        "anything-mthdspool-inspect-process" nil cmd)
-
     (set-process-sentinel
      (get-process "anything-mthdspool-inspect-process")
      #'(lambda (process event)
@@ -223,7 +227,8 @@
 (defun anything-ruby-inspect ()
   "inspects the given ruby object."
   (interactive)
-  (setq require-file (file-truename buffer-file-name))
+  (setq require-file (anything-ruby-mthds-find-require))
+  (message require-file)
   (anything-other-buffer
    '(anything-c-source-ruby-inspect) *anything-ruby-inspect-buffer-name*))
 
