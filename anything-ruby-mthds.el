@@ -54,23 +54,13 @@
 (defvar *anything-ruby-mthds-buffer-name*
   "*Anything ruby-mthds*")
 
-(defvar *anything-ruby-inspect-buffer-name*
-  "*Anything ruby-inspect*")
-
 (defcustom anything-ruby-mthds-object-cmd
-  "mthdspool   \
-   --object %s \
-   --filter %s "
-  "Ruby mthds script."
-  :group 'anything-ruby-mthds
-  :type 'string)
-
-(defcustom anything-ruby-inspect-cmd
   "mthdspool    \
-  --describe %s \
-  --require  %s \
-  --library  %s "
-  "Ruby inspect script."
+   --object  %s \
+   --filter  %s \
+   --require %s \
+   --library %s "
+  "Ruby mthds script."
   :group 'anything-ruby-mthds
   :type 'string)
 
@@ -96,38 +86,6 @@
       (file-truename buffer-file-name)
     ""))
 
-(defun anything-ruby-inspect-init (require-file)
-  "mthdspool inspect process."
-  (setq mode-line-format
-        '(" " mode-line-buffer-identification " "
-          (line-number-mode "%l") " "
-          (:eval (propertize "(mthdspool inspect pocess running) "
-                             'face '((:foreground "red"))))))
-  (setq cmd (format anything-ruby-inspect-cmd
-                    anything-pattern
-                    require-file
-                    (anything-ruby-mthds-find-libs)))
-  (prog1
-      (start-process-shell-command
-       "anything-mthdspool-inspect-process" nil cmd)
-    (set-process-sentinel
-     (get-process "anything-mthdspool-inspect-process")
-     #'(lambda (process event)
-         (when (string= event "finished\n")
-           (with-anything-window
-             (kill-local-variable 'mode-line-format)
-             (anything-update-move-first-line)
-             (setq mode-line-format
-                   '(" " mode-line-buffer-identification " "
-                     (line-number-mode "%l") " "
-                     (:eval (propertize
-                             (format "[mthdspool inspect Process Finished - (%s results)] "
-                                     (let ((nlines (1- (count-lines
-                                                        (point-min)
-                                                        (point-max)))))
-                                       (if (> nlines 0) nlines 0)))
-                             'face 'compilation-info-face))))))))))
-
 (defun anything-ruby-mthds-init ()
   "mthdspool process."
   (setq mode-line-format
@@ -144,7 +102,11 @@
   (prog1
       (start-process-shell-command
        "anything-mthdspool-process" nil
-       (format anything-ruby-mthds-object-cmd obj mthd))
+       (format anything-ruby-mthds-object-cmd
+               obj
+               mthd
+               require-file
+               (anything-ruby-mthds-find-libs)))
     (set-process-sentinel
      (get-process "anything-mthdspool-process")
      #'(lambda (process event)
@@ -196,23 +158,14 @@
 
 (defvar anything-c-source-ruby-mthds
   '((name . "Anything Ruby Mthds")
-    (candidates . anything-ruby-mthds-init)
+    (candidates
+     . (lambda ()
+         (anything-ruby-mthds-init require-file)))
     (requires-pattern . 2)
     (candidate-number-limit . 9999)
     (action . (lambda (candidate)
                 (kill-new (car (cdr (split-string candidate "#")))))))
   "Return a list of objects ruby methods.")
-
-(defvar anything-c-source-ruby-inspect
-  '((name . "Anything Ruby inspect")
-    (candidates
-     . (lambda ()
-         (anything-ruby-inspect-init require-file)))
-    (requires-pattern . 2)
-    (candidate-number-limit . 9999)
-    (action . (lambda (candidate)
-                (kill-new (car (cdr (split-string candidate "#")))))))
-  "Inspect a ruby object.")
 
 ;;; --------------------------------------------------------------------
 ;;; - Interctive Functions
@@ -221,15 +174,8 @@
 (defun anything-ruby-mthds ()
   "Return a list of objects ruby methods from Objectspace."
   (interactive)
+  (setq require-file (anything-ruby-mthds-find-require))
   (anything-other-buffer
    '(anything-c-source-ruby-mthds) *anything-ruby-mthds-buffer-name*))
-
-(defun anything-ruby-inspect ()
-  "inspects the given ruby object."
-  (interactive)
-  (setq require-file (anything-ruby-mthds-find-require))
-  (message require-file)
-  (anything-other-buffer
-   '(anything-c-source-ruby-inspect) *anything-ruby-inspect-buffer-name*))
 
 (provide 'anything-ruby-mthds)
