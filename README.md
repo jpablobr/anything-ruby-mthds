@@ -23,7 +23,7 @@ There is no need to setup load-path with add-to-list if you copy
 
 ## Requirements
 
-### [mthdspool Ruby gem](http://github.com/jpablobr/mthdspool)
+### [mthdspool Ruby gem](https://bitbucket.org/jpablobr/mthdspool)
 
 Installation with RubyGems, simply open a terminal and type:
 
@@ -31,13 +31,13 @@ Installation with RubyGems, simply open a terminal and type:
 
 Local installation:
 
-[Download](http://github.com/jpablobr/mthdspool/download) the tarball package and:
+[Download](https://bitbucket.org/jpablobr/mthdspool/downloads) the tarball package and:
 
     $ tar -xvzf mthdspool-{version}.tgz
 
 or
 
-    $ git clone https://github.com/jpablobr/mthdspool.git
+    $ git clone git clone git@bitbucket.org:jpablobr/mthdspool.git
 
 then 
 
@@ -106,7 +106,7 @@ the first parameter:
 
 ## Todo
 
-Add support to the `--instance` object parameter that the [mthdspool Ruby gem](http://github.com/jpablobr/mthdspool) already supports.
+Add support to the `--instance` object parameter that the [mthdspool Ruby gem](https://bitbucket.org/jpablobr/mthdspool) already supports.
 
 ## Copyright
 

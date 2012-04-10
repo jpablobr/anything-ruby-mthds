@@ -2,6 +2,7 @@
 
 ;; This file is not part of Emacs
 
+;; Author: Jose Pablo Barrantes
 ;; Copyright (C) 2011 Jose Pablo Barrantes
 ;; Created: 2012-03-05
 ;; Version: 0.1.0
@@ -56,10 +57,10 @@
 
 (defcustom anything-ruby-mthds-object-cmd
   "mthdspool    \
-   --object  %s \
-   --filter  %s \
    --require %s \
-   --library %s "
+   --library %s \
+   --object  %s \
+   --filter  %s "
   "Ruby mthds script."
   :group 'anything-ruby-mthds
   :type 'string)
@@ -86,7 +87,7 @@
       (file-truename buffer-file-name)
     ""))
 
-(defun anything-ruby-mthds-init ()
+(defun anything-ruby-mthds-init (require-file)
   "mthdspool process."
   (setq mode-line-format
         '(" " mode-line-buffer-identification " "
@@ -103,10 +104,10 @@
       (start-process-shell-command
        "anything-mthdspool-process" nil
        (format anything-ruby-mthds-object-cmd
-               obj
-               mthd
                require-file
-               (anything-ruby-mthds-find-libs)))
+               (anything-ruby-mthds-find-libs)
+               obj
+               mthd))
     (set-process-sentinel
      (get-process "anything-mthdspool-process")
      #'(lambda (process event)
@@ -179,3 +180,6 @@
    '(anything-c-source-ruby-mthds) *anything-ruby-mthds-buffer-name*))
 
 (provide 'anything-ruby-mthds)
+
+
+;;; anything-git-goto.el ends here
